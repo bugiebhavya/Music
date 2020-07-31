@@ -24,12 +24,12 @@
             <div class="col-md-4 item">
                 <div class="card small-box item-card cards card-block bg-primary">
                 <div class="inner">
-                  <h3 id="sales_value">0 <sup style="font-size: 20px">$</sup></h3>
+                  <h3 id="student_count"> <sup style="font-size: 20px">$</sup></h3>
 
-                  <p>Sales</p>
+                  <p>Student</p>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-shopping-cart"></i>
+                  <i class="fa fa-graduation-cap"></i>
                 </div>
                 {% comment %} {% check_perm request.user 'sales.view_sales' as sales_perm %} {% endcomment %}
                 {% comment %} {% if sales_perm %} {% endcomment %}
@@ -47,12 +47,12 @@
             <div class="col-md-4 item">
                 <div class="card small-box item-card cards card-block bg-green">
                 <div class="inner">
-                  <h3 id="commission_value">0 <sup style="font-size: 20px">$</sup></h3>
+                  <h3 id="teacher_count"> <sup style="font-size: 20px">$</sup></h3>
 
-                  <p>Commissions</p>
+                  <p>Teacher</p>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-bars"></i>
+                  <i class="fas fa-chalkboard-teacher"></i>
                 </div>
                 {% comment %} {% check_perm request.user 'accounts.view_commissions' as comm_perm %} {% endcomment %}
                 {% comment %} {% if comm_perm %} {% endcomment %}
@@ -70,9 +70,9 @@
             <div class="col-md-4 item">
                 <div class="card small-box item-card cards card-block bg-yellow">
                     <div class="inner">
-                      <h3 id="client_count">0</h3>
+                      <h3 id="booking_count"></h3>
 
-                      <p>Clients</p>
+                      <p>Booking</p>
                     </div>
                     <div class="icon">
                       <i class="fa fa-users"></i>
@@ -368,4 +368,20 @@
         }, 50000) {% endcomment %}
         
     </script>
+    <script>
+        function loadDashboardCount(){
+            $.ajax({
+              type: 'GET',
+              url: "https://lit-badlands-42924.herokuapp.com/api/dashboard_count",
+              success: function(response){
+                if(response.code == 200){
+                  document.getElementById('student_count').innerHTML = response.data.student_count;
+                  document.getElementById('teacher_count').innerHTML = response.data.teacher_count;
+                  document.getElementById('booking_count').innerHTML = response.data.booking_count;
+                }
+              }
+            })
+        }
+        loadDashboardCount()
+    </script> 
 {% endblock %}
