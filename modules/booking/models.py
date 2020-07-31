@@ -40,8 +40,8 @@ class Media(models.Model):
 
 	# booking
 	booking = models.OneToOneField(Booking, verbose_name=_("Booking"), blank=False, null=True,on_delete=models.CASCADE)
-	document = models.FileField(verbose_name=_("Teacher Document"))
-	video_file= models.FileField(verbose_name=_("Teacher Video"), upload_to="teacher-videos", blank=True, null=True)
+	document = models.FileField(verbose_name=_("Teacher Document"),upload_to="media-doc")
+	video_file= models.FileField(verbose_name=_("Teacher Video"), upload_to="media-videos", blank=True, null=True)
 	description = models.TextField(verbose_name=_("Additional Information"), blank=True, null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
