@@ -1,10 +1,13 @@
 asgiref==3.2.10
+dataclasses==0.7
 Django==3.0.8
 django-jazzmin==2.2.5
 django-language-field==0.0.3
+django-ninja==0.3.0
 gunicorn==20.0.4
 Pillow==7.2.0
 psycopg2-binary==2.8.5
+pydantic==1.6.1
 pytz==2020.1
 sqlparse==0.3.1
 whitenoise==5.1.0
