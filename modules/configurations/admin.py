@@ -1,9 +1,13 @@
 from django.contrib import admin
-from .models import Ratings, StaticPages, MusicGenre, Instrument
+from .models import Ratings, StaticPages, MusicGenre, Instrument, EmailTemplate
 # Register your models here.
 
 
 
+class EmailTemplateAdmin(admin.ModelAdmin):
+	list_display=['template_name', 'email_subject', 'created_at']
+
+admin.site.register(EmailTemplate, EmailTemplateAdmin)
 
 
 class StaticPagesAdmin(admin.ModelAdmin):

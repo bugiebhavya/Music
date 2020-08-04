@@ -40,12 +40,6 @@ class Specializations(models.Model):
 
 
 
-class TeacherDocument(models.Model):
-	teacher = models.ForeignKey(Teacher, verbose_name=("Teacher"), on_delete=models.CASCADE, blank=False, null=True)
-	certificate = models.FileField(verbose_name='Certificate Record', blank=True, null=True, upload_to='teacher_document', default=('/dummy.png'))
-	created_at = models.DateTimeField(auto_now_add=True)
-	updated_at = models.DateTimeField(auto_now=True)
-
 class MusicGenre(models.Model):
 	class Meta:
 		verbose_name = _("Music Genre")
@@ -55,6 +49,30 @@ class MusicGenre(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+	def __str__(self):
+		return str(self.name)
+
+class EmailTemplate(models.Model):
+	STUDENT_REGISTRATION = "StudentRegistration"
+	TEACHER_REGISTRATION = "TeacherRegistration"
+	UPLOAD_MEDIA  = "UploadMedia"
+	FORGOT_PASSWORD = "ForgotPassword"
+	
+	TEMPLATE_TYPE = (
+		(STUDENT_REGISTRATION, "Student Registration"),
+		(TEACHER_REGISTRATION, "Teacher Registration"),
+		(UPLOAD_MEDIA, "Upload Media"), 
+		(FORGOT_PASSWORD, "Forgot Password"),
+	)
+
+	template_name = models.CharField(max_length=50, choices=TEMPLATE_TYPE, default=UPLOAD_MEDIA, unique=True)
+	email_subject = models.TextField()
+	email_content = models.TextField()
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return str(self.template_name)
 
 class StaticPages(models.Model):
 	class Meta:

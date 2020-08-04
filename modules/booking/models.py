@@ -1,8 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from users.models import User
+from django.utils.encoding import smart_str
 from modules.teacher.models import Teacher
 from languages.fields import LanguageField
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 # Create your models here.
 
 
@@ -27,6 +30,8 @@ class Booking(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+	def __str__(self):
+		return str(self.id)
 
 
 class Media(models.Model):
@@ -46,3 +51,21 @@ class Media(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+
+class Notification(models.Model):
+	class Meta:
+		verbose_name = ('Notification')
+		verbose_name_plural = ('Notifications')
+
+	receiver = models.ForeignKey(verbose_name=_('User to be notified'), to="users.User", null=True, blank=True, on_delete=models.SET, related_name="receivers")
+	sender = models.ForeignKey(verbose_name=_('User who sent notification'), to="users.User", null=True, blank=True, on_delete=models.SET, related_name="senders")
+	content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+	object_id = models.PositiveIntegerField()
+	content_object = GenericForeignKey('content_type', 'object_id')
+	note = models.TextField(verbose_name=_("Notification Content"))
+	seen = models.BooleanField(default=False)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return smart_str("%s-%s"%(self.receiver.username, self.content_object)) 

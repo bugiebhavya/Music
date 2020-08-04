@@ -36,7 +36,12 @@ class Teacher(User):
 	short_introduction = models.TextField(verbose_name=("Teacher Introduction"), blank=True, null=True)
 	about = models.TextField(verbose_name=("About Me"), blank=True, null=True)
 	is_verified = models.BooleanField(verbose_name=("Is Verified ?"), default=False)
-	# music_genre = models.ManyToManyField(MusicGenre, verbose_name=_("MusicGenre"))
+	music_genre = models.ManyToManyField(to="configurations.MusicGenre", verbose_name=_("MusicGenre"))
 
 
 
+class TeacherDocument(models.Model):
+	teacher = models.ForeignKey(Teacher, verbose_name=("Teacher"), on_delete=models.CASCADE, blank=False, null=True)
+	certificate = models.FileField(verbose_name='Certificate Record', blank=True, null=True, upload_to='teacher_document', default=('/dummy.png'))
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
