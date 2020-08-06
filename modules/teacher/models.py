@@ -38,6 +38,9 @@ class Teacher(User):
 	is_verified = models.BooleanField(verbose_name=("Is Verified ?"), default=False)
 	music_genre = models.ManyToManyField(to="configurations.MusicGenre", verbose_name=_("MusicGenre"))
 
+	def save(self, *args, **kwargs):
+		self.role = "TEACHER"
+		super(Teacher, self).save(*args, **kwargs)
 
 
 class TeacherDocument(models.Model):

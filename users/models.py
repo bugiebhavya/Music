@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
-
+from django.core.exceptions import ValidationError
+import pdb
 
 
 class User(AbstractUser):
@@ -17,7 +18,7 @@ class User(AbstractUser):
 	email = models.EmailField(verbose_name=_('Email'),max_length=200,blank=False,null=False)
 	dob = models.DateField(verbose_name=_("Date of Birth"), blank=False, null=True)
 	phone_number = models.IntegerField(verbose_name=_("Phone Number"), blank=True, null=True)
-	role = models.CharField(max_length=50, default="", choices=ROLE)
+	role = models.CharField(max_length=50, choices=ROLE)
 	is_active = models.BooleanField(default=False)
 	is_staff = models.BooleanField(default=False)
 	is_superuser = models.BooleanField(default=False)
@@ -34,4 +35,10 @@ class User(AbstractUser):
 			raise ValidationError('In Phone Number minimum 7 length and maximum 13 is required')
 		super(User, self).clean(*args, **kwargs)
 
+	def save(self, *args, **kwargs):
+		if self.role:
+			self.role = "TEACHER"
+		else:
+			self.role = "STUDENT"
+		super(User, self).save(*args, **kwargs)
 
