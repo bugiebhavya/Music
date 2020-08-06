@@ -13,8 +13,8 @@ class User(AbstractUser):
 		verbose_name =_("Student")
 		verbose_name_plural = _("Students")
 
-	username = models.CharField(verbose_name=_('Username'), max_length=100)
-	email = models.EmailField(verbose_name=_('Email'),max_length=200,blank=False,null=False, unique=True)
+	username = models.CharField(verbose_name=_('Username'), max_length=100, unique=True)
+	email = models.EmailField(verbose_name=_('Email'),max_length=200,blank=False,null=False)
 	dob = models.DateField(verbose_name=_("Date of Birth"), blank=False, null=True)
 	phone_number = models.IntegerField(verbose_name=_("Phone Number"), blank=True, null=True)
 	role = models.CharField(max_length=50, default="", choices=ROLE)
@@ -23,7 +23,7 @@ class User(AbstractUser):
 	is_superuser = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
-	USERNAME_FIELD = 'email'
+	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = ('username',)
 
 	def __str__(self):
