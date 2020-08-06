@@ -36,9 +36,10 @@ class User(AbstractUser):
 		super(User, self).clean(*args, **kwargs)
 
 	def save(self, *args, **kwargs):
-		if self.role:
-			self.role = "TEACHER"
-		else:
-			self.role = "STUDENT"
+		if not is_superuser:
+			if self.role:
+				self.role = "TEACHER"
+			else:
+				self.role = "STUDENT"
 		super(User, self).save(*args, **kwargs)
 
