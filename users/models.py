@@ -5,6 +5,10 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractUser):
+	ROLE = (
+		("STUDENT", 'Student'),
+		("TEACHER", 'Teacher')
+	)
 	class Meta:
 		verbose_name =_("Student")
 		verbose_name_plural = _("Students")
@@ -13,6 +17,7 @@ class User(AbstractUser):
 	email = models.EmailField(verbose_name=_('Email'),max_length=200,blank=False,null=False, unique=True)
 	dob = models.DateField(verbose_name=_("Date of Birth"), blank=False, null=True)
 	phone_number = models.IntegerField(verbose_name=_("Phone Number"), blank=True, null=True)
+	role = models.CharField(max_length=50, default="", choices=ROLE)
 	is_active = models.BooleanField(default=False)
 	is_staff = models.BooleanField(default=False)
 	is_superuser = models.BooleanField(default=False)
