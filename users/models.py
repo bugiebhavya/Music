@@ -17,8 +17,8 @@ class User(AbstractUser):
 	username = models.CharField(verbose_name=_('Username'), max_length=100, unique=True)
 	email = models.EmailField(verbose_name=_('Email'),max_length=200,blank=False,null=False)
 	dob = models.DateField(verbose_name=_("Date of Birth"), blank=False, null=True)
-	phone_number = models.IntegerField(verbose_name=_("Phone Number"), blank=True, null=True)
-	role = models.CharField(max_length=50, choices=ROLE)
+	phone_number = models.CharField(verbose_name=_("Phone Number"), blank=True, null=True, max_length = 13)
+	role = models.CharField(max_length=50, choices=ROLE, blank= True, null = True)
 	is_active = models.BooleanField(default=False)
 	is_staff = models.BooleanField(default=False)
 	is_superuser = models.BooleanField(default=False)
@@ -36,7 +36,7 @@ class User(AbstractUser):
 		super(User, self).clean(*args, **kwargs)
 
 	def save(self, *args, **kwargs):
-		if not is_superuser:
+		if not self.is_superuser:
 			if self.role:
 				self.role = "TEACHER"
 			else:
