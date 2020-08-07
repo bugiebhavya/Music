@@ -1,16 +1,7 @@
 35.154.63.168:80
-{
-  proxy / django:{$8000} {
-    transparent
-    except /media /static
-  }
 
-  root /var/www
+root */home/deploy/Music
 
-  log /var/log/access.log {
-    rotate_size 100 # Rotate after 100 MB
-    rotate_age  14  # Keep log files for 14 days
-    rotate_keep 10  # Keep at most 10 log files
-    rotate_compress # Compress rotated log files in gzip format
-  }
-}
+file_server
+
+reverse_proxy :8000
