@@ -160,7 +160,7 @@ JAZZMIN_SETTINGS = {
     'site_header': 'Music Portal',
 
     # square logo to use for your site, must be present in static files, used for favicon and brand on top left
-    'site_logo': 'polls/img/logo.png',
+    'site_logo': 'img/logo.png',
 
     # Welcome text on the login screen
     'welcome_sign': 'Welcome Admin',
