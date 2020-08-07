@@ -1,6 +1,6 @@
 35.154.63.168:80
 {
-  proxy / django:{$PORT} {
+  reverse_proxy / django:{$PORT} {
     transparent
     except /media /static
   }
