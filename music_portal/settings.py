@@ -25,7 +25,7 @@ SECRET_KEY = '_v%201+gw)s*_w$%d*r2o@0vyrb(n-=9u6sh_3zw3jj-_a(tu%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lit-badlands-42924.herokuapp.com','127.0.0.1','0.0.0.0']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'users',
     'languages',
     'modules.teacher.apps.TeacherConfig',
     'modules.configurations.apps.ConfigurationsConfig',
     'modules.booking.apps.BookingConfig',
+    'modules.chat.apps.ChatConfig',
+    'modules.payment.apps.PaymentConfig'
 
 ]
 
@@ -54,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'music_portal.urls'
@@ -88,23 +91,13 @@ WSGI_APPLICATION = 'music_portal.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-# DATABASES = {    
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'music_portal',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
 DATABASES = {    
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd5b4366pmm3uqk',
-        'USER': 'npvdextrrsboxr',
-        'PASSWORD': '105a3720d3c8c5e584a9ac629d8d221093960b61315246604dc478e82717183a',
-        'HOST': 'ec2-54-159-138-67.compute-1.amazonaws.com',
+        'NAME': 'music_portal',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -155,7 +148,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 AUTH_USER_MODEL = 'users.User'
 
