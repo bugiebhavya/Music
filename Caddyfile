@@ -4,4 +4,4 @@ root */home/deploy/Music
 
 file_server
 
-reverse_proxy 127.0.0.1:8000
+reverse_proxy :8000
